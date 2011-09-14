@@ -22,3 +22,7 @@ class ScalaCheckTest extends Properties("My ScalaCheck test example") {
 ```
 
 Run the test suite now with the "mvn test" command, which by default uses JUnit as the unit testing framework and JUnit will execute the test suite automatically using ScalaCheck for the property checks.
+
+Maven repository
+----------------
+TODO. This code is not avaiable as a JAR file yet.
