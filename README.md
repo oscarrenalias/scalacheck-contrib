@@ -1,6 +1,9 @@
+ScalaCheck-Contrib
+==================
 This repository contains additional features for ScalaCheck that are not part of the main repository. At the moment only a JUnit 4 runner is available.
 
-== JUnit 4 runner for ScalaCheck ==
+JUnit 4 runner for ScalaCheck
+-----------------------------
 
 This is a simple JUnit 4 runner that allows "pure" ScalaCheck tests to be run as part of existing JUnit 4 suites. Properties that hold true will be reported as succesful test cases to JUnit, and properties that falsify will be shown as error test cases by JUnit.
 
