@@ -1,0 +1,1 @@
+This repository contains additional features for ScalaCheck that are not part of the main repository. At the moment only a JUnit 4 runner is available.
