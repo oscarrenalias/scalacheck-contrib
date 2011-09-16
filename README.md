@@ -51,3 +51,7 @@ Please note that the library is currently only compield for Scala 2.9.0-1.
 With the plain JAR file:
 
 Get the JAR file from here: https://github.com/phunkphorce/scalacheck-contrib/raw/master/target/scalacheck-contrib_2.9.0-1-20110916.jar
+
+License
+-------
+Apache 2.0 License: http://www.apache.org/licenses/LICENSE-2.0.html
