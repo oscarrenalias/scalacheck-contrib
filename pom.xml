@@ -2,8 +2,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.renalias.scalacheck</groupId>
-    <artifactId>scalacheck-contrib_${scala.version}</artifactId>
-    <version>${maven.build.timestamp}</version>
+    <artifactId>scalacheck-contrib_2.9.0-1</artifactId>
+    <version>20110916</version>
     <properties>
         <scala.version>2.9.0-1</scala.version>
         <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
