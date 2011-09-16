@@ -21,14 +21,9 @@ class ScalaCheckRunnerTest extends Properties("Rectangle property suite") {
 		(r1 biggerThan r2) == (r1.area > r2.area)
 	}
 
-	// This does not hold true and will be reported as a test error by JUnit
-	property("Failed test") = forAll {(a:Int) =>
-		a == 1
-	}
-
 	// This holds true, and ScalaCheck will output the test data grouping to the console
 	property("Test with collection of data") = forAll {(a:Int) =>
-		(a > 0 && a <= 10) ==> collect(a) {
+		collect(a) {
 			2 * a == a + a
 		}
 	}
@@ -38,10 +33,7 @@ class ScalaCheckRunnerTest extends Properties("Rectangle property suite") {
  * Simple case class that will be used as the basis for our examples
  */
 case class Rectangle(val width:Double, val height:Double) {
-	// when the width is a multiple of 11, this will fail for the sake of having a bug in our code
-	lazy val area =  if(width % 3 ==0) (width * 1.0001 * height) else (width * height)
-	// valid version of the method above
-	lazy val areaCorrect = (width * height)
+	lazy val area = (width * height)
 	lazy val perimeter = (2*width) + (2*height)
 	def biggerThan(r:Rectangle) = (area > r.area)
 }
