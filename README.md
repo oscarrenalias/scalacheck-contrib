@@ -23,7 +23,7 @@ class ScalaCheckTest extends Properties("My ScalaCheck test example") {
 
 Run the test suite now with the "mvn test" command, which by default uses JUnit as the unit testing framework and JUnit will execute the test suite automatically using ScalaCheck for the property checks.
 
-Configuration
+Getting Started
 ----------------
 With Maven:
 
@@ -43,5 +43,11 @@ With SBT (0.7.x):
 
 ```scala
     val repo = "phunkporce.github.com" at "http://phunkphorce.github.com/maven"
-	val scalacheckContrib = "net.renalias.scalacheck" % "scalacheck-contrib_2.9.0-1" % "20110916"
-```
+	val scalacheckContrib = "net.renalias.scalacheck" %% "scalacheck-contrib" % "20110916"
+``
+
+Please note that the library is currently only compield for Scala 2.9.0-1.
+
+With the plain JAR file:
+
+Get the JAR file from here: https://github.com/phunkphorce/scalacheck-contrib/raw/master/target/scalacheck-contrib_2.9.0-1-20110916.jar
