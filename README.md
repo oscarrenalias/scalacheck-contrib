@@ -44,7 +44,7 @@ With SBT (0.7.x):
 ```scala
     val repo = "phunkporce.github.com" at "http://phunkphorce.github.com/maven"
 	val scalacheckContrib = "net.renalias.scalacheck" %% "scalacheck-contrib" % "20110916"
-``
+```
 
 Please note that the library is currently only compield for Scala 2.9.0-1.
 
