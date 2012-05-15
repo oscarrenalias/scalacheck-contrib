@@ -54,4 +54,4 @@ Get the JAR file from here: https://github.com/phunkphorce/scalacheck-contrib/ra
 
 License
 -------
-Apache 2.0 License: http://www.apache.org/licenses/LICENSE-2.0.html
+This code is copyrighted by Accenture, and is released under the Apache 2.0 License: http://www.apache.org/licenses/LICENSE-2.0.html.
