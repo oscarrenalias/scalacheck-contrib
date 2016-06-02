@@ -2,11 +2,13 @@ package org.scalacheck.contrib
 
 import org.junit.runner.Description
 import org.scalacheck._
-import org.scalacheck.{Test=>SchkTest}
-import org.scalacheck.Test.Params
+import org.scalacheck.{Test => SchkTest}
 import org.junit.runner.notification.{Failure, RunNotifier}
 import org.scalacheck.Prop.Result
-import java.lang.{Throwable, Boolean}
+import java.lang.{Boolean, Throwable}
+
+import org.scalacheck.util.ConsoleReporter
+import org.scalacheck.util.Pretty.Params
 
 /**
  * This a JUnit runner that allows to run ScalaCheck properties (created into an object that implements
@@ -72,7 +74,7 @@ class ScalaCheckJUnitPropertiesRunner(suiteClass: java.lang.Class[Properties]) e
 					print("Running property: " + desc)
 
 					notifier.fireTestStarted(descObj)
-					SchkTest.check(Params(testCallback = consoleReporter chain (new CustomTestCallback(notifier, descObj))), prop)
+					SchkTest.check(prop)(_.withTestCallback(consoleReporter.chain(new CustomTestCallback(notifier, descObj))))
 					notifier.fireTestFinished(descObj)
 				}
 			}
