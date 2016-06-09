@@ -55,10 +55,10 @@ class ScalaCheckJUnitPropertiesRunner(suiteClass: java.lang.Class[Properties]) e
 	// we'll use this one to report status to the console, and we'll chain it with our custom reporter
 	val consoleReporter = new ConsoleReporter(1)
 
-	def customConfig(parameters: Test.Parameters, description: String): Test.Parameters =
+	def customConfig(parameters: Test.Parameters, description: Description): Test.Parameters =
 		if(properties.isInstanceOf[ScalaCheckConfig])
 			properties.asInstanceOf[ScalaCheckConfig]
-				.withConfig(parameters, description.substring((properties.name + '.').length))
+				.withConfig(parameters, description)
 		else parameters
 
 	/**
@@ -87,7 +87,7 @@ class ScalaCheckJUnitPropertiesRunner(suiteClass: java.lang.Class[Properties]) e
 					print("Running property: " + desc)
 
 					notifier.fireTestStarted(descObj)
-					SchkTest.check(prop)(parameters => ourConfig(customConfig(parameters, desc), descObj, prop))
+					SchkTest.check(prop)(parameters => ourConfig(customConfig(parameters, descObj), descObj, prop))
 					notifier.fireTestFinished(descObj)
 				}
 			}
