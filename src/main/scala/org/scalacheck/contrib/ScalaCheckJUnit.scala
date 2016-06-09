@@ -10,6 +10,8 @@ import java.lang.{Boolean, Throwable}
 import org.scalacheck.util.ConsoleReporter
 import org.scalacheck.util.Pretty.Params
 
+import scala.org.scalacheck.contrib.ScalaCheckConfig
+
 /**
  * This a JUnit runner that allows to run ScalaCheck properties (created into an object that implements
  * Properties) as part of a JUnit test suite. Each property will be counted as a failure or passed test
@@ -53,6 +55,12 @@ class ScalaCheckJUnitPropertiesRunner(suiteClass: java.lang.Class[Properties]) e
 	// we'll use this one to report status to the console, and we'll chain it with our custom reporter
 	val consoleReporter = new ConsoleReporter(1)
 
+	def customConfig(parameters: Test.Parameters, description: String): Test.Parameters =
+		if(properties.isInstanceOf[ScalaCheckConfig])
+			properties.asInstanceOf[ScalaCheckConfig]
+				.withConfig(parameters, description.substring((properties.name + '.').length))
+		else parameters
+
 	/**
 	 * Run this <code>Suite</code> of tests, reporting results to the passed <code>RunNotifier</code>.
 	 * This class's implementation of this method invokes <code>run</code> on an instance of the
@@ -65,6 +73,11 @@ class ScalaCheckJUnitPropertiesRunner(suiteClass: java.lang.Class[Properties]) e
 	 */
 	def run(notifier: RunNotifier) {
 
+		def ourConfig(parameters: Test.Parameters, descObj: Description, prop: Prop): Test.Parameters = {
+			val testCallback = consoleReporter.chain(new CustomTestCallback(notifier, descObj))
+			parameters.withTestCallback(Option(parameters.testCallback).fold(testCallback)(_.chain(testCallback)))
+		}
+
 		properties.properties.map({ propTuple =>
 			propTuple match {
 				case (desc, prop) => {
@@ -74,7 +87,7 @@ class ScalaCheckJUnitPropertiesRunner(suiteClass: java.lang.Class[Properties]) e
 					print("Running property: " + desc)
 
 					notifier.fireTestStarted(descObj)
-					SchkTest.check(prop)(_.withTestCallback(consoleReporter.chain(new CustomTestCallback(notifier, descObj))))
+					SchkTest.check(prop)(parameters => ourConfig(customConfig(parameters, desc), descObj, prop))
 					notifier.fireTestFinished(descObj)
 				}
 			}
