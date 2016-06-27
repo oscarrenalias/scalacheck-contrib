@@ -4,11 +4,8 @@ import org.junit.runner.Description
 import org.scalacheck._
 import org.scalacheck.{Test => SchkTest}
 import org.junit.runner.notification.{Failure, RunNotifier}
-import org.scalacheck.Prop.Result
-import java.lang.{Boolean, Throwable}
 
-import org.scalacheck.util.ConsoleReporter
-import org.scalacheck.util.Pretty.Params
+import org.scalacheck.util.{ConsoleReporter, Pretty}
 
 import scala.org.scalacheck.contrib.ScalaCheckConfig
 
@@ -38,16 +35,13 @@ class ScalaCheckJUnitPropertiesRunner(suiteClass: java.lang.Class[Properties]) e
 
 	// Our custom tes callback, used to keep JUnit's runner updated about test progress
 	private[contrib] class CustomTestCallback(notifier:RunNotifier, desc: Description) extends Test.TestCallback {
-		// TODO: is it even possible to obtain the correct stack trace? ScalaCheck doesn't throw Exceptions for property failures!
-		def failure = new Failure(desc, new Throwable("ScalaCheck property did not hold true"))
-
 		/** Called whenever a property has finished testing */
 		override def onTestResult(name: String, res: Test.Result) = {
 			res.status match {
 				case Test.Passed => {} // Test passed, nothing to do
 				case Test.Proved(_) => {} // Test passed, nothing to do
 				case Test.Exhausted => notifier.fireTestIgnored(desc) // exhausted tests are marked as ignored in JUnit
-				case _ => notifier.fireTestFailure(failure) // everything else is a failed test
+				case _ => notifier.fireTestFailure(new Failure(desc, new Throwable(Pretty.pretty(res)))) // everything else is also a failed test
 			}
 		}
 	}
