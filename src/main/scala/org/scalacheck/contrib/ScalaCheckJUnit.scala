@@ -78,7 +78,7 @@ class ScalaCheckJUnitPropertiesRunner(suiteClass: java.lang.Class[Properties]) e
 					val descObj = Description.createTestDescription(prop.getClass, desc)
 
 					// TODO: is there a better way to do this? It seems that JUnit is not printing the actual name of the test case to the screen as it runs
-					print("Running property: " + desc)
+					println("Running property: " + desc)
 
 					notifier.fireTestStarted(descObj)
 					SchkTest.check(prop)(parameters => ourConfig(customConfig(parameters, descObj), descObj, prop))
