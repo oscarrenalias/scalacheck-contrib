@@ -41,7 +41,8 @@ class ScalaCheckJUnitPropertiesRunner(suiteClass: java.lang.Class[Properties]) e
 				case Test.Passed => {} // Test passed, nothing to do
 				case Test.Proved(_) => {} // Test passed, nothing to do
 				case Test.Exhausted => notifier.fireTestIgnored(desc) // exhausted tests are marked as ignored in JUnit
-				case _ => notifier.fireTestFailure(new Failure(desc, new Throwable(Pretty.pretty(res)))) // everything else is also a failed test
+				case Test.PropException(_, exception, _) => notifier.fireTestFailure(new Failure(desc, exception)) // property evaluation escaped
+ 				case _ => notifier.fireTestFailure(new Failure(desc, new Throwable(Pretty.pretty(res)))) // everything else is also a failed test
 			}
 		}
 	}
